@@ -1,6 +1,7 @@
 # Introduction
 
-This is the backend implementation of the "Spam Reporting Management System".
+This is the backend implementation of the "Spam Management System (SMS)".
+Its corresponding frontend can be found [here](https://github.com/marcosuma/spam-management-service-frontend).
 It is a very simple backend implementation that allows to mainly do two things:
 
 - Retrieve a list of active tickets (whose related content is either active/open or removed/blocked)

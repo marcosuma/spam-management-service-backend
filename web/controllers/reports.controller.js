@@ -3,7 +3,7 @@
 const DataModel = require("../../models/data.model.js");
 const { TicketStateType } = require("../../utils/ticket_state.type.js");
 
-const handle_error = (err, res) => {
+const handleError = (err, res) => {
   if (err.name === "ValidationError") {
     res.status(400).send({ message: err.message });
     return;
@@ -26,7 +26,7 @@ const UPDATE_HANDLER = {
             message: "Report resolved successfully.",
           });
         })
-        .catch((err) => handle_error(err, res));
+        .catch((err) => handleError(err, res));
     },
   },
   BLOCKED: {
@@ -42,12 +42,12 @@ const UPDATE_HANDLER = {
             .status(200)
             .send({ id: result.id, message: "Report updated successfully" });
         })
-        .catch((err) => handle_error(err, res));
+        .catch((err) => handleError(err, res));
     },
   },
 };
 
-exports.update_report = (req, res) => {
+exports.updateReport = (req, res) => {
   UPDATE_HANDLER[req.body.ticketState].execute(
     DataModel.getReportModel(),
     req,
@@ -55,7 +55,7 @@ exports.update_report = (req, res) => {
   );
 };
 
-exports.get_reports = (req, res) => {
+exports.getReports = (req, res) => {
   const model = DataModel.getReportModel();
   model
     .getReports(req.body.perPage, req.body.page, {
@@ -67,5 +67,5 @@ exports.get_reports = (req, res) => {
     .then((result) => {
       res.status(200).send(JSON.stringify(result));
     })
-    .catch((err) => handle_error(err, res));
+    .catch((err) => handleError(err, res));
 };

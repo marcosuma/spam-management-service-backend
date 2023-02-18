@@ -29,7 +29,7 @@ describe("Controller", () => {
       return ReportModel;
     });
 
-    await controller.update_report(
+    await controller.updateReport(
       { params: { reportId: "mock-id" }, body: { ticketState: "CLOSED" } },
       mockResponse()
     );
@@ -47,7 +47,7 @@ describe("Controller", () => {
       return ReportModel;
     });
 
-    await controller.update_report(
+    await controller.updateReport(
       { params: { reportId: "mock-id" }, body: { ticketState: "BLOCKED" } },
       mockResponse()
     );
@@ -55,7 +55,7 @@ describe("Controller", () => {
     expect(ReportModel.updateReportState).toBeCalled();
   });
 
-  it("calls the model correctly when get_reports is called", async () => {
+  it("calls the model correctly when getReports is called", async () => {
     ReportModel.getReports.mockImplementation(() => {
       return new Promise((resolve, reject) => {
         resolve([]);
@@ -65,7 +65,7 @@ describe("Controller", () => {
       return ReportModel;
     });
 
-    await controller.get_reports(
+    await controller.getReports(
       { body: { perPage: 0, page: 0 } },
       mockResponse()
     );

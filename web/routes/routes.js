@@ -6,8 +6,8 @@ const middleware = require("../middleware/reports.middleware.js");
 exports.routesConfig = function (app) {
   app.post("/reports/:reportId", [
     middleware.verifyTicketStateFieldExists,
-    reports.update_report,
+    reports.updateReport,
   ]);
 
-  app.get("/get_reports", [reports.get_reports]);
+  app.get("/get_reports", [reports.getReports]);
 };

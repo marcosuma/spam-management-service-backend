@@ -19,7 +19,43 @@ describe("Controller", () => {
     return res;
   };
 
-  it("should call the model correctly when get_reports is called", async () => {
+  it("calls model with deleteReport when update report to CLOSED is called", async () => {
+    ReportModel.deleteReport.mockImplementation(() => {
+      return new Promise((resolve, reject) => {
+        resolve({ id: "mock-id" });
+      });
+    });
+    DataModel.getReportModel.mockImplementation(() => {
+      return ReportModel;
+    });
+
+    await controller.update_report(
+      { params: { reportId: "mock-id" }, body: { ticketState: "CLOSED" } },
+      mockResponse()
+    );
+
+    expect(ReportModel.deleteReport).toBeCalled();
+  });
+
+  it("calls model with updateReportState when update report to BLOCKED is called", async () => {
+    ReportModel.updateReportState.mockImplementation(() => {
+      return new Promise((resolve, reject) => {
+        resolve(Object);
+      });
+    });
+    DataModel.getReportModel.mockImplementation(() => {
+      return ReportModel;
+    });
+
+    await controller.update_report(
+      { params: { reportId: "mock-id" }, body: { ticketState: "BLOCKED" } },
+      mockResponse()
+    );
+
+    expect(ReportModel.updateReportState).toBeCalled();
+  });
+
+  it("calls the model correctly when get_reports is called", async () => {
     ReportModel.getReports.mockImplementation(() => {
       return new Promise((resolve, reject) => {
         resolve([]);

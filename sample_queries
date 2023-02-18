@@ -1,0 +1,11 @@
+curl -X GET \
+  -H "Content-type: application/json" \
+  -H "Accept: application/json" \
+  -d '{"perPage":"10", "page":"0"}' \
+  "http://localhost:3600/get_reports"
+
+curl -X POST \
+  -H "Content-type: application/json" \
+  -H "Accept: application/json" \
+  -d '{"ticketState": "RESOLVED"}' \
+  "http://localhost:3600/reports/07b74660-b92e-4cd9-8ec8-016bbb6d6edc"

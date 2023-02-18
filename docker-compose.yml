@@ -1,0 +1,48 @@
+version: "3"
+services:
+  app:
+    container_name: app
+    image: reporting-spam-backend
+    restart: always
+    build: .
+    ports:
+      - "3600:3600"
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
+  # api:
+  #   image: marcosuma/mckinsey-coding-challenge
+  #   build: .
+  #   networks:
+  #     - backend
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - mongo
+
+  # mongo:
+  #   image: mongo
+  #   volumes:
+  #     - ./data:/data/db
+  #   networks:
+  #     - backend
+  #   ports:
+  #     - "27017:27017"
+
+  # web-cli:
+  #   image: marcosuma/mckinsey-coding-challenge
+  #   links:
+  #     - mongo
+  #   networks:
+  #     - backend
+  #   command: sh
+
+networks:
+  backend:
+    driver: bridge

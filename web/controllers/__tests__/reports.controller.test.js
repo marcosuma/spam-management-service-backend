@@ -13,7 +13,10 @@ require("dotenv").config();
 describe("Controller", () => {
   const mockResponse = () => {
     const res = {};
-    res.status = jest.fn().mockReturnValue(res);
+    res.status = jest.fn().mockImplementation((code) => {
+      res.code = code;
+      return res;
+    });
     res.send = jest.fn().mockReturnValue(res);
     res.json = jest.fn().mockReturnValue(res);
     return res;
@@ -71,5 +74,17 @@ describe("Controller", () => {
     );
 
     expect(ReportModel.getReports).toBeCalled();
+  });
+
+  it("it returns 400 when ticketState is invalid", async () => {
+    res = await controller.updateReport(
+      {
+        params: { reportId: "mock-id" },
+        body: { ticketState: "WRONG_REQUEST" },
+      },
+      mockResponse()
+    );
+
+    expect(res.code).toBe(400);
   });
 });

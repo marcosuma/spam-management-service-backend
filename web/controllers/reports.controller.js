@@ -48,6 +48,9 @@ const UPDATE_HANDLER = {
 };
 
 exports.updateReport = (req, res) => {
+  if (UPDATE_HANDLER[req.body.ticketState] === undefined) {
+    return res.status(400).send();
+  }
   UPDATE_HANDLER[req.body.ticketState].execute(
     DataModel.getReportModel(),
     req,
